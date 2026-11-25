@@ -1,0 +1,3 @@
+// Local frame-difference motion adapter; not anatomical tracking.
+export function motion(now,prev,w,h,mirror=false){let sx=0,sy=0,total=0,count=0;const points=[];for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=(y*w+x)*4;const d=(Math.abs(now[i]-prev[i])+Math.abs(now[i+1]-prev[i+1])+Math.abs(now[i+2]-prev[i+2]))/3;if(d>24){const px=mirror?1-x/(w-1):x/(w-1);sx+=px*d;sy+=y/(h-1)*d;total+=d;count++;points.push([px,y/(h-1),d]);}}return {x:total?sx/total:.5,y:total?sy/total:.5,intensity:Math.min(1,count/(w*h*.18)),activation:count>12,confidence:Math.min(1,count/50),points};}
+export async function openCamera(facingMode){return navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:facingMode},width:{ideal:640},height:{ideal:480}}});}
