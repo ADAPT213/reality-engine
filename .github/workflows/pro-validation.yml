@@ -50,6 +50,7 @@ jobs:
               try{await page.screenshot({path:'evidence/'+name+'.png'})}catch(e){result.pass=false;result.screenshotError=e.message}
               report.push(result);
             }
+            await page.locator('#advanced').click();
             await page.getByRole('button',{name:'Particle overlay',exact:true}).click();
             let babylon=false;try{await page.waitForFunction(()=>window.proBabylonFrames>2,{},{timeout:60000});babylon=true}catch{}
             report.push({name:'Babylon runtime',pass:babylon});
