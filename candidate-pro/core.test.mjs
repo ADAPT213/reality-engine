@@ -1,5 +1,5 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {clamp,Governor,Transformation,mapPoint,Anchors,effects} from './core.mjs';
-test('registry',()=>assert.equal(new Set(effects.map(x=>x.id)).size,12));
+test('registry',()=>assert.equal(new Set(effects.map(x=>x.id)).size,14));
 test('clamp',()=>assert.equal(clamp(3),1));
 test('governor descends',()=>{const g=new Governor();for(let i=0;i<120;i++)g.update(40);assert.equal(g.config.name,'BALANCED')});
 test('mirror',()=>assert.equal(mapPoint({x:.25,y:.5},[1,1],true).x,.75));
